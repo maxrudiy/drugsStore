@@ -1,13 +1,22 @@
 import { Outlet } from "react-router-dom";
 import { ShopsNavbar } from "../components/shops-navbar";
+import { Grid, Box } from "@mui/material";
 
 const ShopsLayout = () => {
   return (
-    <>
-      <ShopsNavbar />
-      <Outlet />
-      ShopsMiniCart
-    </>
+    <Grid container direction="row" justifyContent="space-between" alignItems="stretch" spacing={3}>
+      <Grid item xs={2}>
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="40vh">
+          <ShopsNavbar />
+        </Box>
+      </Grid>
+      <Grid item xs={8}>
+        <Outlet />
+      </Grid>
+      <Grid item xs={2}>
+        ShopsMiniCart
+      </Grid>
+    </Grid>
   );
 };
 

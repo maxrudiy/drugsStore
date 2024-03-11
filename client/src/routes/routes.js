@@ -6,6 +6,7 @@ import { ShopsLayout } from "../layouts/shops-layout";
 import { Products } from "../components/products";
 import store from "../store/store";
 import { getProductsThunk } from "../store/products-slice";
+import { BestProducts } from "../components/best-products";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -15,16 +16,20 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: "products/:shop?",
+        path: "/",
         element: <ShopsLayout />,
         children: [
           {
-            index: true,
+            path: "products/:shop",
             element: <Products />,
             loader: async ({ params, request }) => {
               const url = new URL(request.url);
               return store.dispatch(getProductsThunk(`${SERVER_URL}/products/${params.shop}${url.search}`));
             },
+          },
+          {
+            index: true,
+            element: <BestProducts />,
           },
         ],
       },

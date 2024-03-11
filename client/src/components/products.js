@@ -1,16 +1,40 @@
 import { useSelector } from "react-redux";
-import { MyPagination } from "./pagination";
+import { MyPagination } from "./my-pagination";
 import { Product } from "./product";
+import { Grow, Grid, CircularProgress, Box } from "@mui/material";
+import { FilterBar } from "./filters-bar";
+
 function Products() {
   const productsStore = useSelector((state) => state.productsStore);
 
   return (
-    <>
-      {productsStore.response.data.map((item) => (
-        <Product product={item} />
-      ))}
-      <MyPagination page={productsStore.response.currentPage} count={productsStore.response.numberOfPages} />
-    </>
+    <Grid container direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
+      <Grid item>
+        <FilterBar />
+      </Grid>
+      <Grid item minHeight="70vh">
+        {productsStore.loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Grow in>
+            <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" spacing={2}>
+              {productsStore.response.data.map((item, index) => (
+                <Grid item>
+                  <Product key={index} product={item} isFavorite={productsStore.isFavorite.includes(item._id)} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grow>
+        )}
+      </Grid>
+      <Grid item>
+        <Box display="flex" justifyContent="center" minWidth="100vh">
+          <MyPagination page={productsStore.response.currentPage} count={productsStore.response.numberOfPages} />
+        </Box>
+      </Grid>
+    </Grid>
   );
 }
 

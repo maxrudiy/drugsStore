@@ -1,35 +1,46 @@
-import { Box, Tabs } from "@mui/material";
-import { useState } from "react";
-import { LinkTab } from "./link-tab";
-
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-}
+import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import MedicationIcon from "@mui/icons-material/Medication";
+import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
+import RamenDiningIcon from "@mui/icons-material/RamenDining";
+import SoupKitchenIcon from "@mui/icons-material/SoupKitchen";
+import { LinkListItem } from "./link-list-item";
 
 const ShopsNavbar = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
-  const handleChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: "background.paper", display: "flex", height: 224 }}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={selectedTab}
-        onChange={handleChange}
-        aria-label="vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider" }}
-      >
-        <LinkTab pathname="/products/drugs24" label="DRUGS24" {...a11yProps(0)} />
-        <LinkTab pathname="/products/pharmacy" label="PHARMACY" {...a11yProps(1)} />
-        <LinkTab pathname="/products/shop1" label="SHOP1" {...a11yProps(2)} />
-        <LinkTab pathname="/products/shop2" label="SHOP2" {...a11yProps(3)} />
-      </Tabs>
-    </Box>
+    <List>
+      <LinkListItem pathname="/products/drugs24" disablePadding>
+        <ListItemButton>
+          <ListItemIcon>
+            <MedicationIcon />
+          </ListItemIcon>
+          <ListItemText secondary="DRUGS24" />
+        </ListItemButton>
+      </LinkListItem>
+      <LinkListItem pathname="/products/pharmacy" disablePadding>
+        <ListItemButton>
+          <ListItemIcon>
+            <MedicalServicesIcon />
+          </ListItemIcon>
+          <ListItemText secondary="PHARMACY" />
+        </ListItemButton>
+      </LinkListItem>
+      <LinkListItem pathname="/products/shop1" disablePadding>
+        <ListItemButton>
+          <ListItemIcon>
+            <RamenDiningIcon />
+          </ListItemIcon>
+          <ListItemText secondary="SHOP1" />
+        </ListItemButton>
+      </LinkListItem>
+      <LinkListItem pathname="/products/shop2" disablePadding>
+        <ListItemButton>
+          <ListItemIcon>
+            <SoupKitchenIcon />
+          </ListItemIcon>
+          <ListItemText secondary="SHOP2" />
+        </ListItemButton>
+      </LinkListItem>
+    </List>
   );
 };
 

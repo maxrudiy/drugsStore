@@ -31,8 +31,14 @@ const productsSlice = createSlice({
     loading: false,
     error: false,
     response: { currentPage: 1, numberOfPages: 1, data: [] },
+    isFavorite: [],
   },
-  reducers: {},
+  reducers: {
+    setIsFavorite: (state, action) => {
+      const { id, isFavorite } = action.payload;
+      isFavorite ? state.isFavorite.push(id) : (state.isFavorite = state.isFavorite.filter((item) => item !== id));
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getProductsThunk.fulfilled, (state, action) => {
       state.response = action.payload;
@@ -50,4 +56,5 @@ const productsSlice = createSlice({
   },
 });
 
+export const { setIsFavorite } = productsSlice.actions;
 export default productsSlice.reducer;

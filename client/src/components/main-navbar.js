@@ -18,7 +18,7 @@ const MainNavbar = () => {
   return (
     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
       <Tabs value={selectedTab} onChange={handleChange} aria-label="basic tabs example" centered>
-        <LinkTab pathname="/products" label="SHOPS" {...a11yProps(0)} />
+        <LinkTab pathname="/" label="SHOPS" {...a11yProps(0)} />
         <LinkTab pathname="/cart" label="Shopping Cart" {...a11yProps(1)} />
         <LinkTab pathname="/orders-history" label="Orders History" {...a11yProps(2)} />
         <LinkTab pathname="/coupons" label="Coupons" {...a11yProps(3)} />

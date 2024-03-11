@@ -30,7 +30,7 @@ class ProductsController {
   async getProducts(req, res, next) {
     try {
       const { shop } = req.params;
-      const { page } = req.query;
+      const page = req.query.page || 1;
       const limit = 5;
       const startIndex = (Number(page) - 1) * limit;
       const total = await ProductsModel.countDocuments({ shop });

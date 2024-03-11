@@ -1,5 +1,4 @@
 import { Pagination, PaginationItem } from "@mui/material";
-import { useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 
 const MyPagination = ({ page, count }) => {
@@ -7,7 +6,7 @@ const MyPagination = ({ page, count }) => {
 
   return (
     <Pagination
-      page={page}
+      page={page || 1}
       count={count}
       renderItem={(item) => <PaginationItem component={Link} to={`${location.pathname}?page=${item.page}`} {...item} />}
     />

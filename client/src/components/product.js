@@ -1,40 +1,20 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Card, CardActions, CardContent, CardMedia, Button, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useSelector, useDispatch } from "react-redux";
-// import { addToCart, removeFromCart } from "../../../store/cart-slice";
-// import { setFavoritesProducts } from "../../../store/products-slice";
-import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setIsFavorite } from "../store/products-slice";
 
-const Product = ({ product }) => {
+const Product = ({ product, isFavorite }) => {
   const { _id, price, name, description, image } = product;
-  const [favToggled, setFavToggled] = useState(false);
-  const products = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
-    //dispatch(addToCart({ productId: _id, price, name }));
+    //store product object in Cart state
   };
 
   const removeFromCartHandler = () => {
-    //dispatch(removeFromCart({ productId: _id }));
+    //id
   };
-
-  //   useEffect(() => {
-  //     products.favorites.includes(_id) ? setFavToggled(true) : setFavToggled(false);
-  //   }, [products]);
-
-  //   useEffect(() => {
-  //     favToggled
-  //       ? dispatch(setFavoritesProducts([...products.favorites, _id]))
-  //       : dispatch(setFavoritesProducts(products.favorites.filter((item) => item !== _id)));
-  //   }, [favToggled]);
 
   return (
     <Card sx={{ maxWidth: 230 }}>
@@ -61,7 +41,10 @@ const Product = ({ product }) => {
           </Grid>
           <Grid item xs={4}>
             <Box display="flex" justifyContent="center" alignItems="center">
-              <FavoriteIcon onClick={() => setFavToggled(!favToggled)} color={favToggled ? "primary" : "disabled"} />
+              <FavoriteIcon
+                onClick={() => dispatch(setIsFavorite({ id: _id, isFavorite: !isFavorite }))}
+                color={isFavorite ? "primary" : "disabled"}
+              />
             </Box>
           </Grid>
         </Grid>
