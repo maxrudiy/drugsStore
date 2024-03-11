@@ -1,5 +1,7 @@
 import ProductsModel from "../models/products.js";
 
+const PAGINATION_LIMIT = Number(process.env.PAGINATION_LIMIT);
+
 class ProductsController {
   async createProduct(req, res, next) {
     try {
@@ -30,13 +32,16 @@ class ProductsController {
   async getProducts(req, res, next) {
     try {
       const { shop } = req.params;
-      const page = req.query.page || 1;
-      const limit = 5;
-      const startIndex = (Number(page) - 1) * limit;
+      const { page = 1 } = req.query;
+      const startIndex = (Number(page) - 1) * PAGINATION_LIMIT;
       const total = await ProductsModel.countDocuments({ shop });
 
-      const products = await ProductsModel.find({ shop }).sort({ _id: -1 }).limit(limit).skip(startIndex);
-      return res.json({ data: products, currentPage: Number(page), numberOfPages: Math.ceil(total / limit) });
+      const products = await ProductsModel.find({ shop }).sort({ _id: -1 }).limit(PAGINATION_LIMIT).skip(startIndex);
+      return res.json({
+        data: products,
+        currentPage: Number(page),
+        numberOfPages: Math.ceil(total / PAGINATION_LIMIT),
+      });
     } catch (err) {
       return next(err);
     }
@@ -66,7 +71,42 @@ class ProductsController {
   }
   async filtersProducts(req, res, next) {
     try {
-      res.send("Filtering");
+      const { shop } = req.params;
+      const { page = 1, sorting, price = "0-1000000000", search } = req.query;
+      const minPrice = Number(price.split("-")[0]);
+      const maxPrice = Number(price.split("-")[1]);
+
+      let sortingQuery;
+      switch (sorting) {
+        case "cheap":
+          sortingQuery = { price: 1 };
+          break;
+        case "expensive":
+          sortingQuery = { price: -1 };
+          break;
+        case "novelty":
+          sortingQuery = { _id: -1 };
+          break;
+        default:
+          sortingQuery = { _id: -1 };
+      }
+
+      let dbQuery = [{ shop }, { price: { $gte: minPrice } }, { price: { $lte: maxPrice } }];
+      search && dbQuery.push({ name: search });
+
+      const startIndex = (Number(page) - 1) * PAGINATION_LIMIT;
+      const total = await ProductsModel.countDocuments({ $and: dbQuery });
+
+      const products = await ProductsModel.find({ $and: dbQuery })
+        .sort(sortingQuery)
+        .limit(PAGINATION_LIMIT)
+        .skip(startIndex);
+
+      res.json({
+        data: products,
+        currentPage: Number(page),
+        numberOfPages: Math.ceil(total / PAGINATION_LIMIT),
+      });
     } catch (err) {
       return next(err);
     }
