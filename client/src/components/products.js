@@ -21,8 +21,8 @@ function Products() {
           <Grow in>
             <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" spacing={2}>
               {productsStore.response.data.map((item, index) => (
-                <Grid item>
-                  <Product key={index} product={item} isFavorite={productsStore.isFavorite.includes(item._id)} />
+                <Grid item key={index}>
+                  <Product product={item} isFavorite={productsStore.isFavorite.includes(item._id)} />
                 </Grid>
               ))}
             </Grid>

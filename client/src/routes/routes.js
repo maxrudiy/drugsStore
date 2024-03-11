@@ -22,9 +22,17 @@ const router = createBrowserRouter([
           {
             path: "products/:shop",
             element: <Products />,
-            loader: async ({ params, request }) => {
+            loader: ({ params, request }) => {
               const url = new URL(request.url);
-              return store.dispatch(getProductsThunk(`${SERVER_URL}/products/${params.shop}${url.search}`));
+              return store.dispatch(getProductsThunk(SERVER_URL + url.pathname + url.search));
+            },
+          },
+          {
+            path: "products/:shop/filters",
+            element: <Products />,
+            loader: ({ params, request }) => {
+              const url = new URL(request.url);
+              return store.dispatch(getProductsThunk(SERVER_URL + url.pathname + url.search));
             },
           },
           {
@@ -42,7 +50,7 @@ const router = createBrowserRouter([
         element: <OrdersHistoryLayout />,
       },
     ],
-    errorElement: <div>Error Element</div>,
+    //errorElement: <div>Error Element</div>,
   },
 ]);
 

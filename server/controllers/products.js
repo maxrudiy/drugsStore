@@ -64,17 +64,9 @@ class ProductsController {
       return next(err);
     }
   }
-  async filterProducts(req, res, next) {
+  async filtersProducts(req, res, next) {
     try {
-      const { name, price } = req.query;
-      const minPrice = req.query["min-price"];
-      const maxPrice = req.query["max-price"];
-
-      const query = { price: Number(price) || { $lte: Number(maxPrice) || 1000000000, $gte: Number(minPrice) || 0 } };
-      name && Object.assign(query, { name });
-      const products = await ProductsModel.find(query).exec();
-
-      res.json(products);
+      res.send("Filtering");
     } catch (err) {
       return next(err);
     }
