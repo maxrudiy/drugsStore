@@ -9,7 +9,7 @@ import { errorMiddlewareLogger, errorMiddlewareResponce } from "./middlewares/er
 
 const PORT = process.env.PORT || 5001;
 
-const whitelist = ["http://localhost:3000", "http://178.54.120.81:4500", "https://drugstore-client.onrender.com"];
+const whitelist = ["http://localhost:3000", "http://178.54.120.81:4500", "https://drugsstore-client.onrender.com"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
