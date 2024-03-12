@@ -5,9 +5,9 @@ import MiniCart from "../components/mini-cart";
 
 const ShopsLayout = () => {
   return (
-    <Grid container direction="row" justifyContent="space-between" alignItems="stretch" spacing={0} sx={{ pt: 1 }}>
+    <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={2}>
       <Grid item xs={2}>
-        <Box display="flex" justifyContent="center" minHeight="40vh">
+        <Box display="flex" justifyContent="center">
           <ShopsNavbar />
         </Box>
       </Grid>

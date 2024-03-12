@@ -8,11 +8,11 @@ function AllProducts() {
   const productsStore = useSelector((state) => state.productsStore);
 
   return (
-    <Grid container direction="column" justifyContent="flex-start" alignItems="stretch" spacing={0}>
+    <Grid container direction="column" justifyContent="center" alignItems="stretch" spacing={2}>
       <Grid item>
         <FilterBar />
       </Grid>
-      <Grid item minHeight="70vh">
+      <Grid item>
         {productsStore.loading ? (
           <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
             <CircularProgress />
@@ -30,7 +30,7 @@ function AllProducts() {
         )}
       </Grid>
       <Grid item>
-        <Box display="flex" justifyContent="center" minWidth="100vh">
+        <Box display="flex" justifyContent="center">
           <MyPagination page={productsStore.response.currentPage} count={productsStore.response.numberOfPages} />
         </Box>
       </Grid>

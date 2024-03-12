@@ -18,7 +18,7 @@ const MainNavbar = () => {
   };
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
+    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
       <Grid item xs={8}>
         <AppBar position="static" color="info">
           <Tabs

@@ -19,8 +19,8 @@ const Product = ({ product, isFavorite }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 230 }}>
-      <CardMedia sx={{ height: 140 }} image={`data:image/jpeg;base64,${image}`} title={name} />
+    <Card sx={{ maxWidth: 220 }}>
+      <CardMedia sx={{ height: 100 }} image={`data:image/jpeg;base64,${image}`} title={name} />
       <CardContent>
         <Typography gutterBottom variant="h9" component="span">
           {name} - {price}$

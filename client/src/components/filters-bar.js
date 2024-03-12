@@ -27,7 +27,7 @@ const FilterBar = () => {
   };
 
   return (
-    <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+    <Grid container direction="row" alignItems="center">
       <Grid item xs={3}>
         <TextField
           margin="dense"
