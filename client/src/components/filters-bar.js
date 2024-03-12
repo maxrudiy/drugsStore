@@ -41,7 +41,7 @@ const FilterBar = () => {
       <Grid item xs={1} sx={{ fontSize: 16, fontFamily: "roboto" }}>
         Price:
       </Grid>
-      <Grid item xs={3.5}>
+      <Grid item xs={3}>
         <Slider
           min={0}
           max={100}
@@ -52,7 +52,7 @@ const FilterBar = () => {
           color="info"
         />
       </Grid>
-      <Grid item xs={2.5}>
+      <Grid item xs={3}>
         <FormControl sx={{ m: 1, pl: 1, minWidth: 170 }} size="small">
           <InputLabel id="demo-select-small-label">Sorting</InputLabel>
           <Select
@@ -70,7 +70,7 @@ const FilterBar = () => {
       </Grid>
       <Grid item xs={2}>
         <Button variant="outlined" onClick={applyFilterHandler}>
-          Aplly Filter
+          Filter
         </Button>
       </Grid>
     </Grid>

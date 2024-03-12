@@ -92,7 +92,10 @@ class ProductsController {
       }
 
       let dbQuery = [{ shop }, { price: { $gte: minPrice } }, { price: { $lte: maxPrice } }];
-      search && dbQuery.push({ name: search });
+      if (search) {
+        const regex = new RegExp(search, "i");
+        dbQuery.push({ name: { $regex: regex } });
+      }
 
       const startIndex = (Number(page) - 1) * PAGINATION_LIMIT;
       const total = await ProductsModel.countDocuments({ $and: dbQuery });

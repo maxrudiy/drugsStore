@@ -5,7 +5,7 @@ import "@fontsource/roboto";
 
 const MainLayout = () => {
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ minWidth: "1200px" }}>
       <MainNavbar />
       <Outlet />
     </Container>

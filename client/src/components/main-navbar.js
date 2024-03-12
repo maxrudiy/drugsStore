@@ -1,30 +1,44 @@
-import { Box, Tabs } from "@mui/material";
-import { useState } from "react";
+import { Grid, Tabs, AppBar } from "@mui/material";
 import { LinkTab } from "./link-tab";
+import { useSelector, useDispatch } from "react-redux";
+import { setMainNavbarSelected } from "../store/other-slice";
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    "aria-controls": `tabpanel-${index}`,
   };
 }
 
 const MainNavbar = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const dispatch = useDispatch();
+  const mainNavbarSelected = useSelector((state) => state.otherStore.mainNavbarSelected);
   const handleChange = (event, newValue) => {
-    setSelectedTab(newValue);
+    dispatch(setMainNavbarSelected(newValue));
   };
 
   return (
-    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-      <Tabs value={selectedTab} onChange={handleChange} aria-label="basic tabs example" centered>
-        <LinkTab pathname="/" label="SHOPS" {...a11yProps(0)} />
-        <LinkTab pathname="/cart" label="Shopping Cart" {...a11yProps(1)} />
-        <LinkTab pathname="/orders-history" label="Orders History" {...a11yProps(2)} />
-        <LinkTab pathname="/coupons" label="Coupons" {...a11yProps(3)} />
-        <LinkTab pathname="manage-products" label="Manage Products" {...a11yProps(4)} />
-      </Tabs>
-    </Box>
+    <Grid container direction="row" justifyContent="center" alignItems="center">
+      <Grid item xs={8}>
+        <AppBar position="static" color="info">
+          <Tabs
+            value={mainNavbarSelected}
+            onChange={handleChange}
+            aria-label="tabs"
+            centered
+            variant="fullWidth"
+            indicatorColor="primary"
+            textColor="inherit"
+          >
+            <LinkTab pathname="/" label="SHOPS" {...a11yProps(0)} />
+            <LinkTab pathname="/cart" label="Shopping Cart" {...a11yProps(1)} />
+            <LinkTab pathname="/orders-history" label="Orders History" {...a11yProps(2)} />
+            <LinkTab pathname="/coupons" label="Coupons" {...a11yProps(3)} />
+            <LinkTab pathname="manage-products" label="Manage Products" {...a11yProps(4)} />
+          </Tabs>
+        </AppBar>
+      </Grid>
+    </Grid>
   );
 };
 

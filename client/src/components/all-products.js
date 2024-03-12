@@ -4,11 +4,11 @@ import { Product } from "./product";
 import { Grow, Grid, CircularProgress, Box } from "@mui/material";
 import { FilterBar } from "./filters-bar";
 
-function Products() {
+function AllProducts() {
   const productsStore = useSelector((state) => state.productsStore);
 
   return (
-    <Grid container direction="column" justifyContent="flex-start" alignItems="stretch" spacing={2}>
+    <Grid container direction="column" justifyContent="flex-start" alignItems="stretch" spacing={0}>
       <Grid item>
         <FilterBar />
       </Grid>
@@ -19,7 +19,7 @@ function Products() {
           </Box>
         ) : (
           <Grow in>
-            <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" spacing={2}>
+            <Grid container direction="row" justifyContent="space-around" alignItems="flex-start" spacing={2}>
               {productsStore.response.data.map((item, index) => (
                 <Grid item key={index}>
                   <Product product={item} isFavorite={productsStore.isFavorite.includes(item._id)} />
@@ -38,4 +38,4 @@ function Products() {
   );
 }
 
-export { Products };
+export { AllProducts };

@@ -2,6 +2,8 @@ import { Grid, Box, Card, CardActions, CardContent, CardMedia, Button, Typograph
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch } from "react-redux";
 import { setIsFavorite } from "../store/products-slice";
+import { addToCart } from "../store/cart-slice";
+import { removeFromCart } from "../store/cart-slice";
 
 const Product = ({ product, isFavorite }) => {
   const { _id, price, name, description, image } = product;
@@ -9,11 +11,11 @@ const Product = ({ product, isFavorite }) => {
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
-    //store product object in Cart state
+    dispatch(addToCart(product));
   };
 
   const removeFromCartHandler = () => {
-    //id
+    dispatch(removeFromCart(_id));
   };
 
   return (
